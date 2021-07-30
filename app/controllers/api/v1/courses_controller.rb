@@ -1,8 +1,10 @@
 module Api
   module V1
     class CoursesController < ::Api::BaseController
-      before_action :set_course, only: [:show, :update, :destroy]
       
+      before_action :test, only: [:index]
+      # before_action :authenticate_user!, only: [:index]
+      before_action :set_course, only: [:show, :update, :destroy]
       
       def index
         courses = Course.all
@@ -16,7 +18,12 @@ module Api
       private
       
       def set_course
-        @course = Course.friendly.find(params[:id])
+        course_id = params[:id]
+        @course = Course.friendly.find(course_id)
+      end
+
+      def test
+        binding.pry
       end
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_11_193328) do
+ActiveRecord::Schema.define(version: 2021_07_30_175832) do
 
   create_table "courses", force: :cascade do |t|
     t.string "title"
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(version: 2021_06_11_193328) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "jwt_blacklists", force: :cascade do |t|
+    t.string "jti"
+    t.datetime "exp"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["jti"], name: "index_jwt_blacklists_on_jti"
+  end
+
   create_table "sections", force: :cascade do |t|
     t.string "title"
     t.string "subtitle"
@@ -43,6 +51,18 @@ ActiveRecord::Schema.define(version: 2021_06_11_193328) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "course_id"
     t.index ["course_id"], name: "index_sections_on_course_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end
