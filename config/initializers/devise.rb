@@ -311,8 +311,11 @@ Devise.setup do |config|
 
   config.navigational_formats = []
 
+  # FOR TESTING: use this if DEVISE_SECRET_KEY is not set as ENV variable:
+  BACKUP_SECRET_KEY =  '12345'
+
   config.jwt do |jwt|
-    jwt.secret = ENV['DEVISE_SECRET_KEY']
+    jwt.secret = ENV['DEVISE_SECRET_KEY'] || BACKUP_SECRET_KEY
     jwt.dispatch_requests = [
         ['POST', %r{^/login$}]
       ]

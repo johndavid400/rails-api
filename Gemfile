@@ -49,4 +49,4 @@ gem "graphiql-rails"
 
 gem 'devise'
 
-gem 'devise-jwt', '~> 0.5.8'
+gem 'devise-jwt', '~> 0.8.1'
